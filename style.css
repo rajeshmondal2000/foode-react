@@ -1,0 +1,167 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  margin: 0.5em 0;
+  background: #FFFFFF;
+  animation: cardintro 0.8s;
+  animation-timing-function: ease-in;
+}
+
+.col-1-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.col-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.col-2-1 div:nth-child(even) {
+  justify-self: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 4em 0.5em;
+  color: #444853;
+}
+
+.card img {
+  height: 100%;
+  width: 100px;
+  border-radius: 8px 0 0 8px;
+}
+
+.title {
+  text-transform: uppercase;
+  padding: 0.5em 0;
+  font-size: 1.25em;
+  color: #444853;
+}
+
+.category {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.25em 0;
+  color: #444853;
+}
+
+.col-1-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5em 0;
+  color: #444853;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  border-bottom: 1px solid #E5E5E5;
+  background: #FFFFFF;
+  padding: 0.5em;
+  z-index: 5;
+}
+
+.toolbar div:nth-child(2) {
+  justify-self: center;
+  align-self: center;
+}
+
+.bottom-bar {
+  background: #FFFFFF;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75em 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  font-size: 1.25em;
+  border-top: 1px solid #E5E5E5;
+  z-index: 5;
+}
+
+.label {
+  font-size: 0.75em;
+  color: grey;
+}
+
+.address {
+  padding: 0.5em 0;
+  overflow: scroll;
+  height: 0.85em;
+  width: 90%;
+}
+
+body {
+  background: #EFEEF4;
+}
+
+.center {
+  text-align: center;
+}
+
+.center p:nth-child(odd) {
+  justify-self: start;
+  padding: 0 1em;
+}
+
+.center p:nth-child(even) {
+  justify-self: end;
+  padding: 0 1em;
+}
+
+hr {
+  width: 95%;
+  justify-self: center;
+  background: #FFFFFF;
+}
+
+.padding-1em {
+  padding: 1em;
+}
+
+
+@keyframes cardintro {
+  0% {
+    opacity: 0.5;
+    transform: translateY(50px);
+  }
+  20% {
+    opacity: 0.6;
+    transform: translateY(40px);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(20px);
+  }
+  80% {
+    opacity: 0.9;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1.0;
+    transform: translateY(0);
+  }
+}
