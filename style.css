@@ -138,6 +138,36 @@ hr {
   padding: 1em;
 }
 
+.cart-btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  grid-gap: 1em;
+  font-size: 1.25em;
+  padding: 1em 0;
+}
+
+
+.btn {
+  align-self: center;
+  justify-self: center;
+  justify-items: center;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #B2520B;
+  color: #B2520B;
+  border-radius: 5px;
+  padding: 0.5em 2em;
+  font-weight: bold;
+  margin: 1em 0;
+}
+
+.btn:hover {
+  background: #B2520B;
+  color: #fff;
+  outline: none;
+}
 
 @keyframes cardintro {
   0% {

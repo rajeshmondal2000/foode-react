@@ -51,9 +51,11 @@ function BottomBar() {
 function ResturantCards() {
   const [resturant, setResturant] = React.useState(store.getState().Resturant)
   
-  store.subscribe(() => {
-    setResturant(store.getState().Resturant)
-  })
+  React.useEffect(()=>{
+    store.subscribe(() => {
+      setResturant(store.getState().Resturant)
+    })
+  },[])
   
   
   return(
@@ -67,7 +69,7 @@ function ResturantCards() {
       </div>
     </div>:''}
      {resturant? resturant.map(item=>
-        <div className="card col-1-2" key={item.mobile} onClick={()=>{
+        <div className="card col-1-2" key={item.ContactNo} onClick={()=>{
         NProgress.start()
         store.dispatch({ type: 'RES'})
         store.dispatch({ type: 'SELECT_RES', 
@@ -84,7 +86,7 @@ function ResturantCards() {
             </div>
           </div>
         </div>
-     ): ''}
+     ):''}
     </div>
   )
 }
@@ -92,28 +94,43 @@ function ResturantCards() {
 function ResturantScreen() {
   const [selectRes, setSelectRes] = React.useState(store.getState().SelRes)
   const [dproduct, setDproduct] = React.useState(null)
+  const [oproduct, setOproduct] = React.useState(null)
   
-  store.subscribe(()=>{
-    setSelectRes(store.getState().SelRes)
-    var myProduct = []
-    store.getState().Product.forEach((item) => {
-      if (item.owner == store.getState().SelRes.Email) {
-        myProduct.push(item)
-      }
-    })
-    setDproduct(myProduct)
-  })
   
   React.useEffect(()=>{
     var myProduct = []
     store.getState().Product.forEach((item)=>{
-      if(item.owner == store.getState().SelRes.Email) {
+      if(item.owner == store.getState().SelRes.Email)
         myProduct.push(item)
-      }
     })
+    setOproduct(myProduct)
     setDproduct(myProduct)
     NProgress.done()
+    store.subscribe(() => {
+      setSelectRes(store.getState().SelRes)
+      var myProduct = []
+      store.getState().Product.forEach((item) => {
+        if (item.owner == store.getState().SelRes.Email)
+          myProduct.push(item)
+      })
+      setDproduct(myProduct)
+      setOproduct(myProduct)
+    })
   },[])
+  
+  function Add(item) {
+    store.dispatch({
+      type: 'PRO_INC', 
+      pid: item.id
+    })
+  }
+  
+  function Remove(item) {
+    store.dispatch({
+      type: 'PRO_DEC',
+      pid: item.id
+    })
+  }
   
   return(
     <>
@@ -125,19 +142,24 @@ function ResturantScreen() {
      </div>
      <hr />
      <div className="container">
-       {dproduct?dproduct.map(item=>
-          <div className="card col-2-1 padding-1em">
+       {dproduct?dproduct.map((item)=>
+          <div className="card col-2-1 padding-1em" key={item.id}>
             <div>
               <p>{item.name}</p>
               <p className="category">{item.category}</p>
-              <p>{item.price}</p>
+              <p>&#8377;&nbsp;{item.price}</p>
             </div>
             
             <div>
-            
+              {item.count==0?<button className="btn" onClick={()=>store.dispatch({
+                type: 'PRO_INC',
+                pid: item.id
+              })}>ADD</button>:<div className="cart-btn">
+                <ion-icon name="remove-circle-outline" onClick={()=>Remove(item)}></ion-icon><span>{item.count}</span><ion-icon name="add-circle-outline" onClick={()=>Add(item)}></ion-icon>
+              </div>}
             </div>
           </div>
-       ):'Not Available'}
+       ):''}
      </div>
     </>
   )

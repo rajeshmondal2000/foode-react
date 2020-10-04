@@ -1,3 +1,41 @@
+// Cart Reducers
+function CartReducers(cart=null, action){
+  switch(action.type) {
+    case 'CART_INC':
+      if(cart != null) {
+        for(var i = 0; i <= carts.length; i++) {
+          if(cart[i].id == action.data.id) {
+            cart[i].count++;
+          }
+        }
+      }
+      return cart
+    
+    case 'CART_DEC':
+      if (cart != null) {
+        for (var i = 0; i <= carts.length; i++) {
+          if (cart[i].id == action.data.id) {
+            cart[i].count--;
+          }
+        }
+      }
+      return cart
+    
+    case 'CART_ADD':
+      var tmpcart = []
+      if(cart!=null) {
+        cart.push(action.data)
+      } else {
+        tmpcart.push(action.data)
+        cart = tmpcart
+      }
+      return cart
+      
+    default:
+      return cart
+  }
+}
+
 // User Reducer
 function UserReducer(user={
   auth: false, 
@@ -67,6 +105,21 @@ function ProductReducer(products=[],action) {
         products.push(item)
       })
       return products
+    
+    case 'PRO_INC':
+      for(var i = 0; i < products.length; i++) {
+        if(products[i].id == action.pid) {
+          products[i].count++;
+        }
+      }
+      return products
+    
+    case 'PRO_DEC':
+      for (var i = 0; i < products.length; i++) {
+       if (products[i].id == action.pid) {
+          products[i].count--;
+         }
+      }
       
     default:
       return products
@@ -87,6 +140,7 @@ function SelResturantReducer(selres=null, action) {
 let Reducers = Redux.combineReducers({
   Product: ProductReducer, 
   Resturant:ResturantReducer, 
+  Cart: CartReducers,
   Screen: ScreenReducer, 
   SelRes: SelResturantReducer
 })
@@ -133,10 +187,6 @@ ReactDOM.render(
 );
 
 // Testing
-store.subscribe(()=>{
-  console.log(store.getState().Resturant)
-  console.log(store.getState().Product)
-})
 
 // Resturant Data Loading
 firebase.database().ref('resturant/users').on('value', (snapshot) => {
